@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>N°</td>
+            <td>Descripcion</td>
+			<td>Acciones</td>			
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for tipo_inmueble in object_list %}
+		<tr>
+			<td>{{ forloop.counter }}</td>
+			<td>{{ tipo_inmueble.descripcion }}</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'propiedad:tipo_inmueble_actualizar' tipo_inmueble.id %}">Editar</a>
+				<a class="btn btn-danger" href="{% url 'propiedad:tipo_inmueble_eliminar' tipo_inmueble.id %}">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+		
+		{% else %}
+		<h1>No hay registros de tipo de inmueble</h1>
+		{% endif %}
+	</tbody>
+</table> 
+
+{% endblock%}

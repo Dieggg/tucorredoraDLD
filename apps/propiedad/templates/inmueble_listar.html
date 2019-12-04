@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm">
+		<h4>Gestión de inmuebles</h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Propietario</td>
+			<td>Tipo</td>
+			<td>Direccion</td>
+			<td>Region</td>
+			
+			<td>Acciones</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for inmueble in object_list %}
+		<tr>
+			<td>{{ inmueble.propietario.user.first_name }} {{ inmueble.propietario.user.last_name }}</td>
+			<td>{{ inmueble.tipo_inmueble.descripcion }}</td>
+			<td>{{ inmueble.calle }} {{ inmueble.numero}} {{ inmueble.detalle}} </td>
+			<td>{{ inmueble.region }}</td>
+			
+			<td>
+                    <a class="btn btn-primary" href="{% url 'propiedad:inmueble_actualizar' inmueble.id %}">Editar</a>
+                    <a class="btn btn-danger" href="{% url 'propiedad:inmueble_eliminar' inmueble.id %}">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+		
+		{% else %}
+		<h1>No hay registros de inmuebles</h1>
+		{% endif %}
+	</tbody>
+</table> 
+	</div>
+</div>
+
+{% endblock%}

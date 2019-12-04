@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% load cloudinary %}
+{% block content %}
+<div class="row">
+	<div class="col-sm">
+		<h4>Gestión de personas (clientes y/o propietarios)</h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Nombre de usuario</td>
+			<td>Nombre</td>
+			<td>Apellidos</td>
+			<td>Rut</td>
+			<td>Email</td>
+			<td>T. Movil</td>
+			<td>T. Fijo</td>
+			<td>Foto perfil</td>
+			<td>Acciones</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for persona in object_list %}
+		<tr>
+			<td>{{ persona.user.username }}</td>
+			<td>{{ persona.user.first_name }}</td>
+			<td> {{persona.user.last_name}}</td>
+			<td>{{ persona.rut }} - {{persona.dv}}</td>
+			<td>{{ persona.user.email }}</td>
+			<td>{{ persona.movil }}</td>
+			<td>{{ persona.fijo }}</td>	
+			<td>
+				<a href="{{ persona.imagen.url }}" target="_blank" class="public_id_link">
+					<div class='public_id'>{{ persona.imagen.public_id }} - {{ persona.imagen.title }}</div>
+					
+					{% cloudinary persona.imagen  width=60 height=60 crop="fill" %}
+				</a>
+			</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'persona:persona_actualizar' persona.id %}">Editar</a>
+				<a class="btn btn-danger" href="{% url 'usuario:usuario_eliminar' persona.user.id %}">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+		
+		{% else %}
+		<h1>No hay registros de personas</h1>
+		{% endif %}
+	</tbody>
+</table> 
+	</div>
+</div>
+
+{% endblock%}
