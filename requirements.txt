@@ -1,4 +1,4 @@
-certifi==2019.11.28
+certifi==2022.12.7
 cloudinary==1.18.2
 Django==2.2.7
 mock==3.0.5
